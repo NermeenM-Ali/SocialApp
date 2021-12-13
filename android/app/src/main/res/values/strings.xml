@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SocialApp</string>
+    <string name="facebook_app_id">297929581872499</string>
+    <string name="fb_login_protocol_scheme">fb297929581872499</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">5BavIhKAL-x9Dv-P6BPlmx7xc9jM8YuvxMN1Q</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+</resources>

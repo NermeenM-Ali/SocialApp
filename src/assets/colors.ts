@@ -1,0 +1,18 @@
+export default {
+  MAIN_COLOR: 'purple',
+  MID_PURPLE: '#A569BD',
+  SECONDARY_COLOR: '#c09cd9',
+  WHITE_COLOR: 'white',
+  BLACK_COLOR: 'black',
+  LIGHTGRAY_COLOR: '#EEEEEE',
+  GRAY_COLOR: 'gray',
+  ON_BOARD_COLOR1: 'darkblue',
+  ON_BOARD_COLOR2: '#764FAD',
+  ON_BOARD_COLOR3: '#FFBE6A',
+  ORANGE_COLOR: '#de4d41',
+  MID_ORANGE_COLOR: '#f5e7ea',
+  BLUE_COLOR: '#4867aa',
+  MID_BLUE_COLOR: '#e6eaf4',
+  RED_COLOR: 'red',
+  SHADOW_COLOR: '#F2F5FC',
+}

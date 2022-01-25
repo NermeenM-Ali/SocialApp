@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { StyleSheet, View, Image, Text, Keyboard, Platform } from 'react-native'
+import React, { useCallback, useRef, useState } from 'react'
+import { StyleSheet, View, Keyboard, Platform } from 'react-native'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { Navigation } from 'react-native-navigation';
@@ -125,12 +125,13 @@ const SignUpScreen = (props: SignUpScreenProps) => {
   }
   const handleFbPress = useCallback(() => dispatch(facebookLogin()), [dispatch])
   const handleGmPress = useCallback(() => dispatch(googleLogin()), [dispatch])
-  const onSubmitRegisteration = useCallback(async (values: any, { setStatus, resetForm }: any) => {
+
+  const handlePressToLoginScreen = useCallback(() => { Navigation.pop(props.componentId) }, [])
+
+  const onSubmitRegisteration = useCallback((values: any, { setStatus, resetForm }: any) => {
     let { email, password } = values
     dispatch(SignUpUser({ email, password, setStatus, resetForm }))
   }, [dispatch])
-
-  const handlePressToLoginScreen = useCallback(() => { Navigation.pop(props.componentId) }, [])
 
   return (
     <View style={styles.container}>

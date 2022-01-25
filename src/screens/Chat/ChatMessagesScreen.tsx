@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FlatList, ImageBackground, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ChatUISkeleton from '../../components/ChatUISkeleton'
@@ -31,7 +31,6 @@ const ChatMessagesScreen = (props: ChatMessagesScreenProps) => {
     }, [])
 
 
-    const handleChangeText = useCallback((msg) => setMessage(msg), [])
 
     const handleSendMsgBtn = () => {
         dispatch(sendMessage({ SelectedChatUserId: SelectedChatItem.userId, message }))
@@ -53,13 +52,15 @@ const ChatMessagesScreen = (props: ChatMessagesScreenProps) => {
             />
         )
     }
+
+    // const handleChangeText = (msg) => setMessage(msg)
     return (
         <ImageBackground source={require('../../assets/images/chatBgImg.png')} style={styles.container} resizeMode='cover'>
             <ChatHeader headerData={SelectedChatItem} componentId={componentId} />
             {isChatMsgsLoading ? <ChatUISkeleton /> : renderChatMessages()}
             <ChatInput
                 value={message}
-                onChangeText={handleChangeText}
+                onChangeText={(msg) => setMessage(msg)}
                 onSendMsgBtnPressed={handleSendMsgBtn} />
         </ImageBackground>
     )

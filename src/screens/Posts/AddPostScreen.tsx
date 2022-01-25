@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import colors from '../../assets/colors'
@@ -26,7 +26,7 @@ const AddPostScreen = (props: NavigationComponentProps) => {
         dispatch(getUserById({ userId: '', fromBottomTab: true }))
     }, [dispatch])
 
-    const renderUploadPostImage = useMemo(() => {
+    const renderUploadPostImage = () => {
         return (
             <UploadFile
                 folderName={FOLDER_NAMES.PHOTOS}
@@ -46,7 +46,7 @@ const AddPostScreen = (props: NavigationComponentProps) => {
                 </View>
             </UploadFile>
         )
-    }, [imgUrl])
+    }
 
     const renderPostText = () => {
         return (
@@ -65,27 +65,27 @@ const AddPostScreen = (props: NavigationComponentProps) => {
         }
     }
 
-    const renderSubmitPostButton = useMemo(() => {
+    const renderSubmitPostButton = () => {
         return (
             <TouchableOpacity style={[styles.submitBtn, { backgroundColor: postText ? colors.MAIN_COLOR : colors.SECONDARY_COLOR }]} disabled={!postText} activeOpacity={0.8} onPress={submitPost}>
                 {isAddPostloading ? <Spinner color={colors.WHITE_COLOR} /> : <Text style={styles.submitBtnTxt}>{Strings.post}</Text>}
             </TouchableOpacity>
         )
-    }, [submitPost])
+    }
 
-    const renderImguploadLoading = useMemo(() => {
+    const renderImguploadLoading = () => {
         return (
             <View style={styles.uploadPercentContainer}>
                 <Spinner color={colors.MAIN_COLOR} />
             </View>)
-    }, [])
+    }
 
     return (
         <View style={styles.container}>
             <Header headerTitle={Strings.addPost} hasBackButton componentId={props.componentId} />
-            {isImageUploadLoading ? renderImguploadLoading : renderUploadPostImage}
+            {isImageUploadLoading ? renderImguploadLoading() : renderUploadPostImage()}
             {renderPostText()}
-            {renderSubmitPostButton}
+            {renderSubmitPostButton()}
         </View>
     )
 }

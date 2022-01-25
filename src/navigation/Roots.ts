@@ -1,5 +1,4 @@
 import { LayoutRoot } from "react-native-navigation"
-import colors from "../assets/colors"
 import { bottomTabOptions, BottomTabStacks } from "./navConfigrations"
 
 export const AuthRoot: LayoutRoot = {
@@ -19,8 +18,6 @@ export const AppRoot: LayoutRoot = {
     root: {
         bottomTabs: {
             id: 'BOTTOM_TABS_LAYOUT',
-
-
             children: [
                 {
                     stack: {

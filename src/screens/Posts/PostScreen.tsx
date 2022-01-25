@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -36,7 +36,7 @@ const PostScreen = () => {
     currentUser.getCurrentUser().then(({ userId }) => setCurrentUserID(userId))
   }
 
-  const renderFooter = useMemo(() => {
+  const renderFooter = () => {
     return (
       <>
         {isPostsPaginate && (<View style={{ paddingVertical: verticalScale(10) }}>
@@ -44,7 +44,7 @@ const PostScreen = () => {
         </View>)}
       </>
     )
-  }, [isPostsPaginate])
+  }
 
   const renderPosts = () => {
     return (
@@ -57,7 +57,7 @@ const PostScreen = () => {
         onRefresh={() => { !isFetchPostsLoading && dispatch(refreshPosts()) }}
         onEndReachedThreshold={0.1}
         onEndReached={() => !isPostsPaginate && moreData && dispatch(pagtinatePosts())}
-        ListFooterComponent={renderFooter}
+        ListFooterComponent={() => renderFooter()}
         renderItem={({ item }) => <PostItem item={item} currentUserID={currentUserID} getPostId={getPostId} />} />
     )
   }

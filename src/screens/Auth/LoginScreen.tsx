@@ -1,12 +1,10 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { StyleSheet, View, Image, Text, Keyboard, Platform } from 'react-native'
+import React, { useCallback, useRef, useState } from 'react'
+import { StyleSheet, View, Keyboard, Platform } from 'react-native'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { Navigation } from 'react-native-navigation';
 import colors from '../../assets/colors'
-import { moderateScale, scale, verticalScale } from '../../utils/Scaling'
 import Strings from '../../assets/strings';
-import Fonts from '../../assets/Fonts';
 import TextInputComponent from '../../components/TextInputComponent';
 import CustomButton from '../../components/CustomButton';
 import CustomLinkButton from '../../components/CustomLinkButton';

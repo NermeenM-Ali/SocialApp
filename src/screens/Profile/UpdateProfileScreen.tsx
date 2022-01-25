@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Image, Keyboard, StyleSheet, ScrollView, View } from 'react-native'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
@@ -151,11 +151,9 @@ const UpdateProfileSCreen = (props: NavigationComponentProps) => {
 
     }
 
-    const handleBackBtn = useCallback(() => Navigation.pop(props.componentId), [])
-
     const renderBackBtn = () => {
         return (
-            <HeaderIconButton isBackBtn={true} onPress={handleBackBtn}>
+            <HeaderIconButton isBackBtn={true} onPress={() => Navigation.pop(props.componentId)}>
                 <AntDesign name='left' style={styles.backIcon} />
             </HeaderIconButton>
         )

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Navigation } from 'react-native-navigation'
@@ -48,19 +48,16 @@ const ProfileScreen = (props: ProfileScreenProps) => {
                 {userProfileData?.userCoverImg ?
                     <Image source={{ uri: userProfileData?.userCoverImg }} resizeMode='stretch' style={styles.img} /> :
                     <Image source={require('../../assets/images/noImg.png')} resizeMode='stretch' style={styles.img} />}
-                {(!userId) && (<HeaderIconButton onPress={handleUpdateBtn} >
+                {(!userId) && (<HeaderIconButton onPress={() => Navigation.push(BottomTabStacks.PROFILE_STACK, { component: { name: 'UpdateProfileScreen' } })} >
                     <FontAwesome5 name='user-edit' style={styles.editProfileIcon} />
                 </HeaderIconButton>)}
 
-                {(userId) && (<HeaderIconButton isBackBtn={true} onPress={handleBackBtn}>
+                {(userId) && (<HeaderIconButton isBackBtn={true} onPress={() => Navigation.pop(componentId)}>
                     <AntDesign name='left' style={styles.backIcon} />
                 </HeaderIconButton>)}
             </View>
         )
     }
-
-    const handleBackBtn = useCallback(() => Navigation.pop(componentId), [])
-    const handleUpdateBtn = useCallback(() => Navigation.push(BottomTabStacks.PROFILE_STACK, { component: { name: 'UpdateProfileScreen' } }), [])
 
     const renderProfileImagesSection = () => {
         return (

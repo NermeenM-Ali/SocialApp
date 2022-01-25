@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import colors from '../../assets/colors'
@@ -24,13 +24,13 @@ const UsersToChatWithScreen = (props: UsersToChatWithScreenProps) => {
         dispatch(fetchAllUsers())
     }, [])
 
-    const renderFooter = useMemo(() => (
+    const renderFooter = () => (
         <>
             {isUsersPaginate && (<View style={{ paddingVertical: verticalScale(10) }}>
                 <Spinner color={colors.MAIN_COLOR} />
             </View>)}
         </>
-    ), [])
+    )
 
     const renderUsersList = () => {
         return (
@@ -42,7 +42,7 @@ const UsersToChatWithScreen = (props: UsersToChatWithScreenProps) => {
                 onRefresh={() => { !isfetchingUsersLoading && dispatch(refreshAllUsers()) }}
                 onEndReachedThreshold={0.01}
                 onEndReached={() => !isUsersPaginate && moreData && dispatch(paginateAllUsers())}
-                ListFooterComponent={renderFooter}
+                ListFooterComponent={() => renderFooter()}
                 renderItem={({ item }) => <ChatItem item={item} componentId={props.componentId} />}
                 style={{ marginTop: verticalScale(15) }} />
         )

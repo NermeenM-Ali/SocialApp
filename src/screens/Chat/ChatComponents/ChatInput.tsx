@@ -1,5 +1,5 @@
 import React from 'react'
-import { Keyboard, StyleSheet, TouchableOpacity, TextInput, View, ActivityIndicator } from 'react-native'
+import { StyleSheet, TouchableOpacity, TextInput, View, ActivityIndicator } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useSelector } from 'react-redux'
 import colors from '../../../assets/colors'

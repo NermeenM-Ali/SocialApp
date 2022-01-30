@@ -59,8 +59,8 @@ const PostItem = (props: PostItemProps) => {
             </View>
             {postImg ? (<PogressiveImage defaultImageSource={require('../../../assets/images/noImg.png')} imageSource={postImg} style={styles.postImgContainer} />) : (<View style={{ width: 0, height: 0 }} />)}
             {
-                (!isInProfile && currentUserID === userId) && (
-                    <TouchableOpacity activeOpacity={0.8} style={styles.deleteBtn} onPress={() => { getPostId(id) }}>
+                (currentUserID === userId) && (
+                    <TouchableOpacity activeOpacity={0.8} style={styles.deleteBtn} onPress={() => getPostId(id)}>
                         <EvilIcons name='trash' style={styles.deleteIcon} />
                     </TouchableOpacity>
                 )

@@ -15,7 +15,8 @@ const initialState = {
     isPostsRefresh: false,
     isPostsPaginate: false,
     moreData: true,
-    lastVisiblePost: null
+    lastVisiblePost: null,
+    postIdToDelete:null
 }
 
 const PostSlice = createSlice({

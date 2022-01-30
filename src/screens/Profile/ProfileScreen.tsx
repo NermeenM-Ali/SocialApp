@@ -16,6 +16,9 @@ import PostItem from '../Posts/PostsComponents/PostItem'
 import { PostSelectorFunc, userProfileLoadingFunc, userSelectorFunc } from '../../redux/slices/UsersSlice'
 import ProfileUISkeleton from '../../components/ProfileUISkeleton'
 import HeaderIconButton from './ProfileComponents/HeaderIconButton'
+import DeleteModal from '../../components/DeleteModal'
+import { deletePost } from '../../redux/actions/PostsAction'
+import { changePostsProps } from '../../redux/slices/PostSlice'
 
 interface ProfileScreenProps {
     componentId: string,
@@ -27,7 +30,7 @@ interface ProfileScreenProps {
 const ProfileScreen = (props: ProfileScreenProps) => {
     const { componentId, userId, fromBottomTab = false } = props
     const dispatch = useDispatch()
-    const setIsInProfile = useState(false)[1]
+    const setIsInProfile = useState(true)[1]
     const postSlice = useSelector(PostSelectorFunc, shallowEqual)
     const userProfileData: any = useSelector(userSelectorFunc, shallowEqual)
     const isUserProfileLoading = useSelector(userProfileLoadingFunc)
@@ -35,7 +38,9 @@ const ProfileScreen = (props: ProfileScreenProps) => {
     useEffect(() => {
         dispatch(getUserById({ userId, fromBottomTab }))
         const listener = {
-            componentDidAppear: () => dispatch(getUserById({ userId, fromBottomTab })),
+            componentDidAppear: () => {
+                dispatch(getUserById({ userId, fromBottomTab }))
+            },
             componentDidDisappear: () => setIsInProfile(false)
         };
         const unsubscribe = Navigation.events().registerComponentListener(listener, componentId);
@@ -88,12 +93,28 @@ const ProfileScreen = (props: ProfileScreenProps) => {
                     isFetchPostsByUserIDLoading || isUserProfileLoading ? <PostUISkeleton /> :
                         !postsByUserId.length && !isFetchPostsByUserIDLoading ? renderEmptyView() :
                             postsByUserId?.map((item, index) => (
-                                <PostItem key={index.toString()} getPostId={() => { }} currentUserID={userId} isInProfile={true} item={item} />
+                                <PostItem key={index.toString()} getPostId={getPostId} currentUserID={userId} isInProfile={true} item={item} />
                             ))
                 }
             </View>
         )
     }
+
+    const getPostId = (postID: string) => {
+        dispatch(changePostsProps({ prop: 'isDeleteModalVisible', value: true }))
+        dispatch(changePostsProps({ prop: 'postIdToDelete', value: postID }))
+    }
+
+    const renderConfirmationModel = () => {
+        let { isDeleteModalVisible, isDeletePostLoading } = postSlice
+        return (
+            <DeleteModal
+                isDeleteModalVisible={isDeleteModalVisible}
+                isDeletePostLoading={isDeletePostLoading}
+                closeModal={() => dispatch(changePostsProps({ prop: 'isDeleteModalVisible', value: false }))}
+                pressToDelete={() => dispatch(deletePost())} />)
+    }
+
 
     const renderUserNameAndBioSection = () => {
         return (
@@ -115,6 +136,7 @@ const ProfileScreen = (props: ProfileScreenProps) => {
                 </>
             }
             {renderUserPosts()}
+            {renderConfirmationModel()}
         </ScrollView>
     )
 }

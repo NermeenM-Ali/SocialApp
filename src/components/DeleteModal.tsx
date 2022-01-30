@@ -30,7 +30,7 @@ const DeleteModal = (props: DeleteModalProps) => {
                     <Image source={require('../assets/images/delete.jpg')} resizeMode='contain' style={styles.img} />
                 </View>
             </View>
-            <TouchableOpacity activeOpacity={0.8} style={styles.confirmBtnContainer} onPress={pressToDelete}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.confirmBtnContainer} onPress={() => pressToDelete()}>
                 {isDeletePostLoading ? <ActivityIndicator color={colors.WHITE_COLOR} size='small' /> : <Text style={styles.confirmTxt}>{Strings.confirm}</Text>}
             </TouchableOpacity>
         </Modal>

@@ -21,7 +21,6 @@ import { verticalScale } from '../../utils/Scaling'
 const PostSelectorFunc = (state: RootState) => state.PostSlice
 
 const PostScreen = () => {
-  const [postId, setPostId] = useState<string>('')
   const [currentUserID, setCurrentUserID] = useState<string>('')
   let { posts, isFetchPostsLoading, isDeleteModalVisible, isDeletePostLoading, isPostsPaginate, isPostsRefresh, moreData } = useSelector(PostSelectorFunc, shallowEqual)
   const dispatch = useDispatch()
@@ -63,12 +62,10 @@ const PostScreen = () => {
   }
 
   const getPostId = (postID: string) => {
-    setPostId(prevId => {
-      if (prevId !== postID) return postID
-      else return prevId
-    })
     dispatch(changePostsProps({ prop: 'isDeleteModalVisible', value: true }))
+    dispatch(changePostsProps({ prop: 'postIdToDelete', value: postID }))
   }
+
 
   const renderConfirmationModel = () => {
     return (
@@ -76,7 +73,7 @@ const PostScreen = () => {
         isDeleteModalVisible={isDeleteModalVisible}
         isDeletePostLoading={isDeletePostLoading}
         closeModal={() => dispatch(changePostsProps({ prop: 'isDeleteModalVisible', value: false }))}
-        pressToDelete={() => dispatch(deletePost({ postId }))} />)
+        pressToDelete={() => dispatch(deletePost())} />)
   }
 
 

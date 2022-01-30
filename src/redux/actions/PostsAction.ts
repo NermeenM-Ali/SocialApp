@@ -86,11 +86,12 @@ export const updatePostInfoAfterUpdateProfile = createAsyncThunk('UPDATE_POST_IN
         })
 })
 
-export const deletePost = createAsyncThunk('DELETE_POST', async (payload: { postId: string }, { dispatch }) => {
+export const deletePost = createAsyncThunk('DELETE_POST', async (_, { dispatch , getState}:any) => {
     dispatch(changePostsProps({ prop: 'isDeletePostLoading', value: true }))
-    const { postId } = payload
+    const { postIdToDelete } = getState().PostSlice
+    console.log({postIdToDelete})
     // علشان لو البوست فيه صوره لازم امسحها من الفايربيز استورج الاول لو معملتش كدا مش هيمسح البوست
-    firestore().collection('posts').doc(postId).get()
+    firestore().collection('posts').doc(postIdToDelete).get()
         .then(async (querySnapshot) => {
 
             if (querySnapshot.exists) {
@@ -101,13 +102,13 @@ export const deletePost = createAsyncThunk('DELETE_POST', async (payload: { post
                     let imageRef = storage().ref(storageRef.fullPath)
 
                     await imageRef.delete().then(async () => {
-                        await firestore().collection('posts').doc(postId).delete().then(() => {
+                        await firestore().collection('posts').doc(postIdToDelete).delete().then(() => {
                             dispatch(FetchPosts())
                             dispatch(FetchPostsByUserID(''))
                         })
                     }).catch((error) => console.log({ error }))
                 } else {
-                    await firestore().collection('posts').doc(postId).delete().then(() => {
+                    await firestore().collection('posts').doc(postIdToDelete).delete().then(() => {
                         dispatch(FetchPosts())
                         dispatch(FetchPostsByUserID(''))
                     }).catch((error) => console.log({ error }))
@@ -117,6 +118,7 @@ export const deletePost = createAsyncThunk('DELETE_POST', async (payload: { post
         }).finally(() => {
             dispatch(changePostsProps({ prop: 'isDeleteModalVisible', value: false }))
             dispatch(changePostsProps({ prop: 'isDeletePostLoading', value: false }))
+            dispatch(changePostsProps({ prop: 'postIdToDelete', value: null }))
         })
 
 })

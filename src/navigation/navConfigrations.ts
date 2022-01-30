@@ -26,8 +26,8 @@ const defaultConfigrations: Options = {
     bottomTabs: {
         visible: true,
         drawBehind: false,
-        backgroundColor: colors.MAIN_COLOR
-        // tabsAttachMode: 'onSwitchToTab',
+        backgroundColor: colors.MAIN_COLOR,
+        tabsAttachMode: 'onSwitchToTab',
     },
 }
 
